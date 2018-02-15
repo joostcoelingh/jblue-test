@@ -21,7 +21,7 @@ volumes:[
   node ('jenkins-pipeline') {
 
     def pwd = pwd()
-    def chart_dir = "${pwd}/charts/croc-hunter"
+    def chart_dir = "${pwd}/charts/test"
 
     checkout scm
 
@@ -62,11 +62,7 @@ volumes:[
     def image_tags_list = pipeline.getMapValues(image_tags_map)
 
     stage ('compile and test') {
-
-      container('golang') {
-        sh "go test -v -race ./..."
-        sh "make bootstrap build"
-      }
+        sh "echo 123"
     }
 
     stage ('test deployment') {
@@ -97,13 +93,6 @@ volumes:[
     stage ('publish container') {
 
       container('docker') {
-
-        // perform docker login to container registry as the docker-pipeline-plugin doesn't work with the next auth json format
-        withCredentials([[$class          : 'UsernamePasswordMultiBinding', credentialsId: config.container_repo.jenkins_creds_id,
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-          sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD} ${config.container_repo.host}"
-        }
-
         // build and publish container
         pipeline.containerBuildPub(
             dockerfile: config.container_repo.dockerfile,
