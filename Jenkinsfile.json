@@ -9,6 +9,7 @@
   },
   "container_repo": {
     "host": "10.233.12.90:5000",
+    "proto": "http",
     "master_acct": "test",
     "alt_acct": "test",
     "jenkins_creds_id": "",
