@@ -13,7 +13,7 @@ podTemplate(label: 'mypod', containers: [
         stage('do some Docker work') {
             container('docker') {
 //                   app = docker.build("my-node")
-		    sh "docker build -t my-node:${env.BUILD_NUMBER} ."
+		    sh "docker build -t my-node ."
            }
         }
 
