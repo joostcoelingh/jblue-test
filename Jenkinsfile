@@ -12,14 +12,35 @@ podTemplate(label: 'mypod', containers: [
 
         stage('do some Docker work') {
             container('docker') {
-                    
-                    sh """
-			docker build -t my-node:${env.BUILD_NUMBER} .
-                        docker tag my-node 10.233.12.90:5000/my-node:${env.BUILD_NUMBER}
-                        """
-                    sh "docker push 10.233.12.90:5000/my-node:${env.BUILD_NUMBER} "
+                   app = docker.build("my-node")
+//		    sh "docker build -t my-node:${env.BUILD_NUMBER} ."
+		     
+//                    sh """
+//                        docker tag my-node 10.233.12.90:5000/my-node:${env.BUILD_NUMBER}
+//                        """
+//                    sh "docker push 10.233.12.90:5000/my-node:${env.BUILD_NUMBER} "
             }
         }
+
+    	stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+
+        	app.inside {
+        	    	sh 'echo "Tests passed"'
+        	}
+ 	}
+
+	stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        	docker.withRegistry('http://10.233.12.90:5000', '') {
+            		app.push("${env.BUILD_NUMBER}")
+            		app.push("latest")
+        	}
+    	}
 
         stage('do some kubectl work') {
             container('kubectl') {
