@@ -1,0 +1,27 @@
+{
+  "app": {
+    "name": "jblue-test",
+    "replicas": "3",
+    "cpu": "10m",
+    "memory": "128Mi",
+    "test": true,
+    "hostname": "test.eqap.io"
+  },
+  "container_repo": {
+    "host": "http://10.233.12.90:5000",
+    "master_acct": "",
+    "alt_acct": "",
+    "jenkins_creds_id": "",
+    "repo": "jblue-test",
+    "dockeremail": ".",
+    "dockerfile": "./",
+    "image_scanning": false
+  },
+  "pipeline": {
+      "enabled": true,
+      "debug": false,
+      "library": {
+        "branch": "master"
+      }
+  }
+}
