@@ -1,0 +1,9 @@
+name: jblue-test
+home: https://github.com/Marcel-R/jblue-test
+version: 0.0.1
+description: Testing jenkins/jblue with kubernetes
+sources:
+  - https://github.com/Marcel-R/jblue-test
+maintainers:
+  - name: Marcel
+    email: Marcel@example.com
