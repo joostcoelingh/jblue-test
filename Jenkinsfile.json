@@ -8,7 +8,7 @@
     "hostname": "test.eqap.io"
   },
   "container_repo": {
-    "host": "http://10.233.12.90:5000",
+    "host": "10.233.12.90:5000",
     "master_acct": "test",
     "alt_acct": "test",
     "jenkins_creds_id": "",
