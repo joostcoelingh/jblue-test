@@ -14,17 +14,17 @@ podTemplate(label: 'mypod', containers: [
             container('docker') {
                     
                     sh """
-                        docker pull ubuntu
-                        docker tag ubuntu 10.233.12.90:5000/test/ubuntu:${env.BUILD_NUMBER}
+                        docker pull google/nodejs-hello
+                        docker tag ubuntu 10.233.12.90:5000/my-node:${env.BUILD_NUMBER}
                         """
-                    sh "docker push 10.233.12.90:5000/test/ubuntu:${env.BUILD_NUMBER} "
+                    sh "docker push 10.233.12.90:5000/my-node:${env.BUILD_NUMBER} "
             }
         }
 
         stage('do some kubectl work') {
             container('kubectl') {
                 sh "kubectl get nodes"
-		sh "kubectl run  --image=10.233.12.90:5000/test/ubuntu:${env.BUILD_NUMBER} ubuntu-test"
+		sh "kubectl run  --image=10.233.12.90:5000/my-node:${env.BUILD_NUMBER} my-node"
             }
         }
     }
