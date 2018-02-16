@@ -13,13 +13,8 @@ podTemplate(label: 'mypod', containers: [
         stage('do some Docker work') {
             container('docker') {
                    app = docker.build("my-node")
-//		    sh "docker build -t my-node:${env.BUILD_NUMBER} ."
-		     
-//                    sh """
-//                        docker tag my-node 10.233.12.90:5000/my-node:${env.BUILD_NUMBER}
-//                        """
-//                    sh "docker push 10.233.12.90:5000/my-node:${env.BUILD_NUMBER} "
-            }
+		    sh "docker build -t my-node:${env.BUILD_NUMBER} ."
+           }
         }
 
     	stage('Test image') {
@@ -36,10 +31,9 @@ podTemplate(label: 'mypod', containers: [
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        	docker.withRegistry('http://10.233.12.90:5000', '') {
-            		app.push("${env.BUILD_NUMBER}")
-            		app.push("latest")
-        	}
+		     
+        	sh " docker tag my-node 10.233.12.90:5000/my-node:${env.BUILD_NUMBER}"
+                sh "docker push 10.233.12.90:5000/my-node:${env.BUILD_NUMBER}"
     	}
 
         stage('do some kubectl work') {
