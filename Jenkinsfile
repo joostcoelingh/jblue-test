@@ -14,8 +14,8 @@ podTemplate(label: 'mypod', containers: [
             container('docker') {
                     
                     sh """
-                        docker pull google/nodejs-hello
-                        docker tag ubuntu 10.233.12.90:5000/my-node:${env.BUILD_NUMBER}
+			docker build -t my-node:${env.BUILD_NUMBER} .
+                        docker tag my-node 10.233.12.90:5000/my-node:${env.BUILD_NUMBER}
                         """
                     sh "docker push 10.233.12.90:5000/my-node:${env.BUILD_NUMBER} "
             }
