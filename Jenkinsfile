@@ -24,11 +24,7 @@ podTemplate(label: 'mypod', containers: [
         stage('do some kubectl work') {
             container('kubectl') {
                 sh "kubectl get nodes"
-            }
-        }
-        stage('do some helm work') {
-            container('helm') {
-               sh "helm ls"
+		sh "kubectl run  --image=10.233.12.90:5000/test/ubuntu:${env.BUILD_NUMBER} ubuntu-test"
             }
         }
     }
