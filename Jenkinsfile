@@ -21,7 +21,7 @@ volumes:[
   node ('jenkins-pipeline') {
 
     def pwd = pwd()
-    def chart_dir = "${pwd}/charts"
+    def chart_dir = "${pwd}/charts/${config.container_repo.repo}"
 
     checkout scm
 
