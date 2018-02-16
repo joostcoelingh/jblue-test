@@ -21,13 +21,13 @@ volumes:[
   node ('jenkins-pipeline') {
 
     def pwd = pwd()
-    def chart_dir = "${pwd}/charts/${config.container_repo.repo}"
 
     checkout scm
 
     // read in required jenkins workflow config values
     def inputFile = readFile('Jenkinsfile.json')
     def config = new groovy.json.JsonSlurperClassic().parseText(inputFile)
+    def chart_dir = "${pwd}/charts/${config.container_repo.repo}"
     println "pipeline config ==> ${config}"
 
     // continue only if pipeline enabled
