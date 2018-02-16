@@ -125,7 +125,7 @@ volumes:[
     if (env.BRANCH_NAME == 'master') {
       stage ('deploy to k8s') {
         container('helm') {
-	  def _tag = image_tags_list.get(0)
+	      def _tag = image_tags_list.get(0)
           // Deploy using Helm chart
           pipeline.helmDeploy(
             dry_run       : false,
@@ -133,7 +133,7 @@ volumes:[
             namespace     : config.app.name,
             chart_dir     : chart_dir,
             set           : [
-              "imageTag": "${config.container_repo.host}/${acct}/${config.app.name}/${_tag}",
+              "imageTag": "${_tag}",
               "replicas": config.app.replicas,
               "cpu": config.app.cpu,
               "memory": config.app.memory,
