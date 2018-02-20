@@ -52,6 +52,11 @@ volumes:[
         pipeline.helmConfig()
       }
     }
+	  
+    if (!config.app.cpu){
+	println "values not found"
+        return
+    } 
 
     def acct = pipeline.getContainerRepoAcct(config)
 
@@ -60,7 +65,11 @@ volumes:[
 
     // compile tag list
     def image_tags_list = pipeline.getMapValues(image_tags_map)
-
+	  
+    if (!image_tags_list.get(0)){
+	println "last tag not found"
+        return
+    } 
     stage ('publish container') {
 
       container('docker') {
