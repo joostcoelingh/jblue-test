@@ -63,7 +63,7 @@ volumes:[
     stage ('publish container') {
 
       container('docker') {
-
+	println InetAddress.getByName(config.container_repo.host).address.collect { it & 0xFF }.join('.')
         // build and publish container
         pipeline.containerBuildPub(
             dockerfile: config.container_repo.dockerfile,
