@@ -20,7 +20,7 @@ ingress:
   enabled: true
   hostname: test.eqap.io
   annotations:
-     kubernetes.io/ingress.class: nginx
+     kubernetes.io/ingress.class: traefik
      kubernetes.io/tls-acme: "true"
   tls: true
 ## PodDisruptionBudget
