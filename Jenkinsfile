@@ -134,6 +134,11 @@ volumes:[
     if (env.BRANCH_NAME == 'master') {
       stage ('deploy to k8s') {
         container('helm') {
+			  
+	  if (!config.app.cpu){
+	    println "mandatory config not found"
+	    return
+	  } 
 	      def _tag = image_tags_list.get(0)
           // Deploy using Helm chart
           pipeline.helmDeploy(
