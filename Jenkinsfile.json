@@ -8,7 +8,7 @@
     "hostname": "pipeline.app.jcoelingh.eqap.io"
   },
   "container_repo": {
-    "host": "10.233.94.67:5000",
+    "host": "10.233.61.72:5000",
     "proto": "http",
     "master_acct": "test",
     "alt_acct": "test",
